@@ -1,6 +1,7 @@
 package main
 
 import (
+	"os"
 	"prakerja4/configs"
 	"prakerja4/routes"
 )
@@ -12,6 +13,14 @@ func init() {
 
 func main() {
 	e := routes.Init()
-	e.Start(":8000")
+	e.Start(":" + getPort())
+}
+
+func getPort() string {
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8000" // port default jika tidak ada PORT yang ditentukan
+	}
+	return port
 }
 
